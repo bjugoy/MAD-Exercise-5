@@ -9,7 +9,7 @@ import com.example.movieappmad24.models.MovieImage
 
 @Database(
     entities = [Movie::class, MovieImage::class],  // tables in the db
-    version = 1,                // schema version; whenever you change schema you have to increase the version number
+    version = 2,                // schema version; whenever you change schema you have to increase the version number
     exportSchema = false        // for schema version history updates
 )
 abstract class MovieDatabase: RoomDatabase() {
