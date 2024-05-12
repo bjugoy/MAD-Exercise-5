@@ -3,9 +3,12 @@ package com.example.movieappmad24.screens
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.movieappmad24.viewmodels.MoviesViewModel
+import com.example.movieappmad24.models.MovieWithImages
+import com.example.movieappmad24.viewmodels.WatchlistViewModel
 import com.example.movieappmad24.widgets.MovieList
 import com.example.movieappmad24.widgets.SimpleBottomAppBar
 import com.example.movieappmad24.widgets.SimpleTopAppBar
@@ -13,7 +16,7 @@ import com.example.movieappmad24.widgets.SimpleTopAppBar
 @Composable
 fun WatchlistScreen(
     navController: NavController,
-    moviesViewModel: MoviesViewModel
+    viewModel: WatchlistViewModel
 ){
     Scaffold (
         topBar = {
@@ -25,13 +28,13 @@ fun WatchlistScreen(
             )
         }
     ){ innerPadding ->
+        val moviesState by viewModel.favoriteMovies.collectAsState()
 
         MovieList(
             modifier = Modifier.padding(innerPadding),
-            movies = moviesViewModel.favoriteMovies,
+            movies = moviesState.map { it.movie },
             navController = navController,
-            viewModel = moviesViewModel
+            viewModel = viewModel
         )
-
     }
 }

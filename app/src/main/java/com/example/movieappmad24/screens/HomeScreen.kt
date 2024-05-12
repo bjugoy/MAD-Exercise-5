@@ -9,22 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.movieappmad24.data.MovieDatabase
-import com.example.movieappmad24.data.MovieRepository
-import com.example.movieappmad24.viewmodels.MoviesViewModel
-import com.example.movieappmad24.viewmodels.MoviesViewModelFactory
+import com.example.movieappmad24.viewmodels.HomeViewModel
+import com.example.movieappmad24.models.MovieWithImages
 import com.example.movieappmad24.widgets.MovieList
 import com.example.movieappmad24.widgets.SimpleBottomAppBar
 import com.example.movieappmad24.widgets.SimpleTopAppBar
 
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: HomeViewModel = viewModel()
 ) {
-    val db = MovieDatabase.getDatabase(LocalContext.current)
-    val repository = MovieRepository(movieDao = db.movieDao())
-    val factory = MoviesViewModelFactory(repository = repository)
-    val viewModel: MoviesViewModel = viewModel(factory = factory)
 
     Scaffold (
         topBar = {
@@ -40,10 +35,9 @@ fun HomeScreen(
 
         MovieList(
             modifier = Modifier.padding(innerPadding),
-            movies = moviesState,
+            movies = moviesState.map { it.movie },
             navController = navController,
             viewModel = viewModel
         )
     }
 }
-

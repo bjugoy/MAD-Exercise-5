@@ -46,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
@@ -53,7 +54,8 @@ import coil.request.ImageRequest
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.navigation.Screen
-import com.example.movieappmad24.viewmodels.MoviesViewModel
+import com.example.movieappmad24.viewmodels.HomeViewModel
+import com.example.movieappmad24.viewmodels.WatchlistViewModel
 
 
 @Composable
@@ -61,14 +63,18 @@ fun MovieList(
     modifier: Modifier,
     movies: List<Movie> = getMovies(),
     navController: NavController,
-    viewModel: MoviesViewModel
+    viewModel: ViewModel
 ){
     LazyColumn(modifier = modifier) {
         items(movies) { movie ->
             MovieRow(
                 movie = movie,
                 onFavoriteClick = {movieId ->
-                    viewModel.toggleFavoriteMovie(movieId)
+                    if (viewModel is HomeViewModel) {
+                        viewModel.toggleFavoriteMovie(movieId)
+                    } else if (viewModel is WatchlistViewModel) {
+                        viewModel.toggleFavoriteMovie(movieId.toLong())
+                    }
                 },
                 onItemClick = { movieId ->
                     navController.navigate(route = Screen.DetailScreen.withId(movieId))

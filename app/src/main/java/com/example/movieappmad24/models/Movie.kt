@@ -1,8 +1,10 @@
 package com.example.movieappmad24.models
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+
 
 @Entity
 data class Movie(
@@ -21,6 +23,23 @@ data class Movie(
     val rating: String,
     var isFavorite: Boolean = false
 )
+
+{
+    constructor(
+        dbId: Long = 0,
+        id: String,
+        title: String,
+        year: String,
+        genre: String,
+        director: String,
+        actors: String,
+        plot: String,
+        trailer: String,
+        rating: String,
+        isFavorite: Boolean = false
+    ) : this(dbId, id, title, year, genre, director, actors, plot, emptyList(), trailer, rating, isFavorite)
+}
+
 
 fun getMovies(): List<Movie> {
     return listOf(

@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.movieappmad24.models.Movie
+import com.example.movieappmad24.models.MovieImage
 
 @Database(
-    entities = [Movie::class],  // tables in the db
+    entities = [Movie::class, MovieImage::class],  // tables in the db
     version = 1,                // schema version; whenever you change schema you have to increase the version number
     exportSchema = false        // for schema version history updates
 )
