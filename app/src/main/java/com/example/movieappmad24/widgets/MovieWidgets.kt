@@ -52,7 +52,7 @@ import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.movieappmad24.models.Movie
-import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.models.MovieWithImages
 import com.example.movieappmad24.navigation.Screen
 import com.example.movieappmad24.viewmodels.HomeViewModel
 import com.example.movieappmad24.viewmodels.WatchlistViewModel
@@ -61,25 +61,24 @@ import com.example.movieappmad24.viewmodels.WatchlistViewModel
 @Composable
 fun MovieList(
     modifier: Modifier,
-    movies: List<Movie> = getMovies(),
+    movies: List<MovieWithImages>,
     navController: NavController,
     viewModel: ViewModel
 ){
     LazyColumn(modifier = modifier) {
         items(movies) { movie ->
             MovieRow(
-                movie = movie,
-                onFavoriteClick = {movieId ->
+                movie = movie.movie,
+                onFavoriteClick = { movieId ->
                     if (viewModel is HomeViewModel) {
                         viewModel.toggleFavoriteMovie(movieId)
                     } else if (viewModel is WatchlistViewModel) {
                         viewModel.toggleFavoriteMovie(movieId.toLong())
                     }
-                },
-                onItemClick = { movieId ->
-                    navController.navigate(route = Screen.DetailScreen.withId(movieId))
                 }
-            )
+            ) { movieId ->
+                navController.navigate(route = Screen.DetailScreen.withId(movieId))
+            }
         }
     }
 }
@@ -163,7 +162,7 @@ fun FavoriteIcon(
             modifier = Modifier.clickable {
                 onFavoriteClick()
                 Log.i("MovieWidget", "icon clicked")
-                                          },
+            },
             tint = MaterialTheme.colorScheme.secondary,
             imageVector =
             if (isFavorite) {

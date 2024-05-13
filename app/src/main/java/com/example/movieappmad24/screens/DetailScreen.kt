@@ -30,14 +30,11 @@ import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
-import com.example.movieappmad24.models.Movie
-import com.example.movieappmad24.models.MovieWithImages
 import com.example.movieappmad24.viewmodels.DetailViewModel
 import com.example.movieappmad24.widgets.HorizontalScrollableImageView
 import com.example.movieappmad24.widgets.MovieRow
 import com.example.movieappmad24.widgets.SimpleTopAppBar
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 
 @Composable
 fun DetailScreen(

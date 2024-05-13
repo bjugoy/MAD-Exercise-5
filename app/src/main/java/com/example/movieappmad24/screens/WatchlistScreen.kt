@@ -32,7 +32,7 @@ fun WatchlistScreen(
 
         MovieList(
             modifier = Modifier.padding(innerPadding),
-            movies = moviesState.map { it.movie },
+            movies = moviesState,
             navController = navController,
             viewModel = viewModel
         )

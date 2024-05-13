@@ -18,7 +18,7 @@ import com.example.movieappmad24.widgets.SimpleTopAppBar
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel
 ) {
 
     Scaffold (
@@ -35,7 +35,7 @@ fun HomeScreen(
 
         MovieList(
             modifier = Modifier.padding(innerPadding),
-            movies = moviesState.map { it.movie },
+            movies = moviesState,
             navController = navController,
             viewModel = viewModel
         )
